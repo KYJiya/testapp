@@ -1,3 +1,4 @@
+process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,8 +7,10 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const sequelize = require('./models').sequelize;
 
 var app = express();
+sequelize.sync();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
